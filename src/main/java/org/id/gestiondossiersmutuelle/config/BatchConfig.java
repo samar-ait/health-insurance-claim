@@ -63,7 +63,7 @@ public class BatchConfig {
     public Job processDossiersJob(JobRepository jobRepository, Step processDossiersStep) {
         return new JobBuilder("processDossiersJob", jobRepository)
                 .start(processDossiersStep)
-                .preventRestart() // Allow restart
+                //.preventRestart() // Allow restart
                 .build();
     }
 
@@ -77,6 +77,7 @@ public class BatchConfig {
                 .reader(reader)
                 .processor(compositeProcessor) // Utilisation du CompositeItemProcessor
                 .writer(writer)
+                .allowStartIfComplete(true)
                 .build();
     }
 

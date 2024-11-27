@@ -14,7 +14,11 @@ public class TraitementMappingProcessor {
     private MedicamentReferentielRepository medicamentReferentielRepository;
 
     public DossierMutuelleDTO process(DossierMutuelleDTO dossierDTO) throws Exception {
+
         for (TraitementDTO traitement : dossierDTO.getTraitements()) {
+            if (!traitement.isExiste()) {
+                continue;  // Skip the traitement
+            }
             MedicamentReferentiel medicament = medicamentReferentielRepository.findByCodeBarre(traitement.getCodeBarre())
                     .orElseThrow(() -> new IllegalArgumentException("Médicament non trouvé: " + traitement.getCodeBarre()));
             traitement.setExiste(true);
@@ -25,4 +29,3 @@ public class TraitementMappingProcessor {
         return dossierDTO;
     }
 }
-

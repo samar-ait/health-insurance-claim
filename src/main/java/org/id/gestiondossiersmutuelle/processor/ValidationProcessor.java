@@ -1,12 +1,16 @@
 package org.id.gestiondossiersmutuelle.processor;
 
 import org.id.gestiondossiersmutuelle.dto.DossierMutuelleDTO;
+import org.id.gestiondossiersmutuelle.repository.AssureRepository;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ValidationProcessor implements ItemProcessor<DossierMutuelleDTO, DossierMutuelleDTO> {
 
+    @Autowired
+    private AssureRepository assureRepository;
     @Override
     public DossierMutuelleDTO process(DossierMutuelleDTO dossier) throws Exception {
         // Validate nomAssure (name of the insured)
